@@ -1,0 +1,89 @@
+Définition des Groupes Utilisateurs - Intranet Vidéosurveillance Saint-Malo
+==========================================================
+
+GROUPE 1: ADMIN (admin)
+------------------------
+Description: Accès complet à toutes les fonctionnalités du système
+
+Droits:
+- Connexion à l'intranet
+- Création, modification, suppression de missions
+- Création, modification, suppression d'utilisateurs
+- Activation/désactivation des comptes utilisateurs
+- Modification des groupes utilisateurs
+- Accès à l'administration
+- Upload et suppression dans tous les espaces du gestionnaire de fichiers
+- CRUD complet sur les annuaires (entreprise, partenaires, clients)
+- Accès à l'espace privé du gestionnaire de fichiers (tous les groupes)
+- Accès à l'annuaire clients confidentiel
+
+GROUPE 2: MANAGERS
+-------------------
+Description: Gestion des utilisateurs et missions, mais pas de suppression d'utilisateurs
+
+Droits:
+- Connexion à l'intranet
+- Création, modification de missions
+- Création, modification d'utilisateurs
+- Modification des groupes utilisateurs (sauf admin)
+- Activation/désactivation des comptes utilisateurs
+- Accès à l'administration
+- Upload et suppression dans tous les espaces du gestionnaire de fichiers
+- CRUD complet sur les annuaires (entreprise, partenaires)
+- Accès à l'espace privé du gestionnaire de fichiers (groupe assigné uniquement)
+- Lecture de l'annuaire clients confidentiel
+
+Restrictions:
+- Ne peut pas supprimer d'utilisateurs
+- Ne peut pas modifier le groupe admin
+- Ne peut pas supprimer dans l'annuaire clients
+
+GROUPE 3: DIRECTION
+--------------------
+Description: Accès étendu pour la direction
+
+Droits:
+- Connexion à l'intranet
+- Lecture des missions
+- Modification de son propre profil
+- Upload dans tous les espaces du gestionnaire de fichiers
+- Suppression uniquement dans son espace personnel
+- Lecture des annuaires (entreprise, partenaires, clients)
+- Génération de fiches clients
+
+Restrictions:
+- Ne peut pas modifier les missions des autres
+- Ne peut pas supprimer dans les espaces public et privé du gestionnaire de fichiers
+- Ne peut pas accéder à l'administration
+- Ne peut pas gérer les utilisateurs
+
+GROUPE 4: SALARIÉS
+------------------
+Description: Accès basique aux fonctionnalités de l'intranet
+
+Droits:
+- Connexion à l'intranet
+- Création de missions
+- Modification de son propre profil
+- Upload dans tous les espaces du gestionnaire de fichiers
+- Suppression uniquement dans son espace personnel
+- Lecture des annuaires (entreprise, partenaires, clients)
+- Génération de fiches clients
+
+Restrictions:
+- Ne peut pas modifier les missions des autres
+- Ne peut pas supprimer dans les espaces public et privé du gestionnaire de fichiers
+- Ne peut pas accéder à l'administration
+- Ne peut pas gérer les utilisateurs
+- Accès à l'espace privé du gestionnaire de fichiers (groupe assigné uniquement)
+
+GROUPE 5: PERSO
+----------------
+Description: Groupe personnalisé pour des besoins spécifiques
+
+Droits:
+- Connexion à l'intranet
+- Permissions configurables selon les besoins
+- Utilisation flexible
+
+NOTE: Un utilisateur peut appartenir à plusieurs groupes simultanément.

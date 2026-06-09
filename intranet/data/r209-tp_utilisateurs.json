@@ -1,0 +1,163 @@
+[
+    {
+        "utilisateur": "admin",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "Admin",
+        "email": "admin@admin.com",
+        "groupes": [
+            "admin"
+        ]
+    },
+    {
+        "utilisateur": "user",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "mini",
+        "email": "user@user.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "modo",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "dacia",
+        "email": "modo@modo.com",
+        "groupes": [
+            "managers"
+        ]
+    },
+    {
+        "utilisateur": "anonymous",
+        "motdepasse": "$2y$10$KjUbubNiOZMWhx4pCTE39.Y3X6aveHLCCqBEohBZ71D.r2YY5mrGy",
+        "vehicule": "none",
+        "email": "",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "aucaijoir",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "citroen",
+        "email": "aucaijoir@aucaijoir.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "mopovaf",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "bmw",
+        "email": "mopovaf@mopovaf.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "moiqauzi",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "bmw",
+        "email": "moiqauzi@moiqauzi.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "odeuvoipoif",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "lada",
+        "email": "odeuvoipoif@odeuvoipoif.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "atoipeneu",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "ford",
+        "email": "atoipeneu@atoipeneu.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "noifaumau",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "ferrari",
+        "email": "noifaumau@noifaumau.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "neuhagal",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "lancia",
+        "email": "neuhagal@neuhagal.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "beukaita",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "renault",
+        "email": "beukaita@beukaita.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "rezetar",
+        "motdepasse": "$2y$10$EztV.T8zsvz4sXMVAOBiKee.ByapuNsNPfp4BsoVtNNuZtRGn7YKa",
+        "vehicule": "volkswagen",
+        "email": "rezetar@rezetar.com",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "mimi",
+        "motdepasse": "$2y$10$RZQpzDCAMj5XBHGP5VJHB.jgPSnoebSBMxBa83hZ1.YL0tHzhsJQ.",
+        "vehicule": "honda",
+        "email": "mimimou@miaou.fr",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "alberic",
+        "motdepasse": "$2y$10$6cX170hZDZTKMNUW2FwUyeT5EkLAFfEnfLtkuiVPhFuiao5rJJGbK",
+        "vehicule": "le CC",
+        "email": "allberc@g.fr",
+        "groupes": [
+            "salaries"
+        ],
+        "actif": false
+    },
+    {
+        "utilisateur": "armel",
+        "motdepasse": "$2y$10$e.jVTvdTE3Z0Bcel4EIbTuezQavLkN4yiyp.gJfA1PgyCjQiK5K\/q",
+        "vehicule": "",
+        "email": "cd@ed.e",
+        "groupes": [
+            "salaries"
+        ]
+    },
+    {
+        "utilisateur": "Admin-Clement",
+        "motdepasse": "$2y$10$TXqQVa8bXitc34N8XDFU.OeU9prtxmFSSsRJTiRQjDrhMKwuRM18G",
+        "vehicule": "Administrateur",
+        "email": "clement@alarme-videosurveillance-35.fr",
+        "groupes": [
+            "admin",
+            "salaries",
+            "managers",
+            "direction",
+            "perso"
+        ],
+        "actif": true,
+        "token_confirmation": "2abf05a96afa6a7e4768202e42ee51b831c9edc309efb2ed09e9295b4f7bf4a8",
+        "date_creation": "2026-06-06 21:51:02"
+    }
+]

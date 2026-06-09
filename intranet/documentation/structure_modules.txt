@@ -1,0 +1,47 @@
+Structure des Modules et Pages - Intranet Vidéosurveillance Saint-Malo
+======================================================
+
+MODULE 1: AUTHENTIFICATION
+--------------------------
+- connexion.php : Page de connexion des utilisateurs
+- inscription.php : Formulaire d'inscription avec validation email
+- deconnexion.php : Déconnexion et destruction de session
+- confirmer.php : Confirmation de compte par email
+
+MODULE 2: GESTION DES MISSIONS
+------------------------------
+- accueil.php : Page d'accueil avec statistiques
+- proposer.php : Création de nouvelles missions
+- visualiser.php : Liste de toutes les missions
+- rechercher.php : Recherche et inscription aux missions
+- modifier.php : Modification et suppression de missions
+- calendar.php : Planning personnel des missions
+
+MODULE 3: GESTION DES UTILISATEURS
+----------------------------------
+- profil.php : Modification du profil utilisateur
+- administration.php : Gestion des utilisateurs (admin only)
+
+MODULE 4: GESTIONNAIRE DE FICHIERS
+----------------------------------
+- gestion_fichiers/index.php : Explorateur de fichiers
+  * Espace Public : Accessible à tous, suppression admin/modo
+  * Espace Privé : Accès par groupe, suppression admin/modo
+  * Espace Personnel : Dossier utilisateur, droits complets
+- gestion_fichiers/telecharger.php : Téléchargement sécurisé
+
+MODULE 5: ANNUAIRES
+-------------------
+- annuaires/index.php : Page principale des annuaires
+- annuaires/annuaire_entreprise.php : Annuaire interne (22 employés)
+- annuaires/annuaire_partenaires.php : Partenaires avec logos (12 partenaires)
+- annuaires/annuaire_clients.php : Clients confidentiels (42 clients)
+- annuaires/api_partenaires.php : API pour site vitrine (Binôme B)
+
+MODULE 6: DOCUMENTATION
+------------------------
+- wiki.php : Documentation du système
+
+MODULE 7: FONCTIONS COMMUNES
+-----------------------------
+- scripts/fonctions.php : Fonctions partagées (header, nav, footer)

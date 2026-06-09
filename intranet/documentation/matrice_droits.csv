@@ -1,0 +1,30 @@
+Module;Fichier/Repertoire;Admin;Modo;User;Description
+AUTHENTIFICATION;connexion.php;L;L;L;Page de connexion
+AUTHENTIFICATION;inscription.php;L;L;L;Formulaire d'inscription
+AUTHENTIFICATION;deconnexion.php;L;L;L;Déconnexion
+AUTHENTIFICATION;confirmer.php;L;L;L;Confirmation de compte
+MISSIONS;accueil.php;L;L;L;Page d'accueil
+MISSIONS;proposer.php;L;L;L;Création de missions
+MISSIONS;visualiser.php;L;L;L;Visualisation des missions
+MISSIONS;rechercher.php;L;L;L;Recherche de missions
+MISSIONS;modifier.php;L;L;L;Modification de missions
+MISSIONS;calendar.php;L;L;L;Planning personnel
+UTILISATEURS;profil.php;L;L;L;Profil utilisateur
+UTILISATEURS;administration.php;L;L;X;Administration
+FICHIERS;gestion_fichiers/public;U/D;U/D;U;Espace public fichiers
+FICHIERS;gestion_fichiers/prive;U/D;U/D;U;Espace privé par groupe
+FICHIERS;gestion_fichiers/personnel;U/D;U/D;U/D;Espace personnel
+ANNUAIRES;annuaire_entreprise.json;CRUD;CRUD;R;Annuaire entreprise
+ANNUAIRES;annuaire_partenaires.json;CRUD;CRUD;R;Annuaire partenaires
+ANNUAIRES;annuaire_clients.json;CRUD;CRUD;R;Annuaire clients
+ANNUAIRES;api_partenaires.php;L;L;X;API pour Binôme B
+DOCUMENTATION;wiki.php;L;L;L;Documentation
+DATA;r209-tp_utilisateurs.json;CRUD;CRUD;X;Base utilisateurs
+DATA;r209-tp_annonces.json;CRUD;CRUD;R;Base missions
+
+L = Lecture (Accès)
+U = Upload (Ajout)
+D = Delete (Suppression)
+C = Create (Création)
+R = Read (Lecture)
+X = Accès refusé

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiki – SAÉ 203 Portail Web</title>
+</head>
+<body>
+
+<h1>Wiki – SAÉ 203 : Portail Web d'Entreprise</h1>
+<p><strong>IUT Saint-Malo – R&amp;T – Année 2025/2026</strong></p>
+<hr>
+
+<h2>Table des matières</h2>
+<ol>
+  <li><a href="#architecture">Description de l'architecture du projet</a>
+    <ol>
+      <li><a href="#archi-serveur">Organisation du serveur</a></li>
+      <li><a href="#archi-vitrine">Site vitrine (WordPress)</a></li>
+      <li><a href="#archi-intranet">Intranet (PHP from scratch)</a></li>
+      <li><a href="#archi-donnees">Stockage des données</a></li>
+      <li><a href="#archi-git">Versionnement Git</a></li>
+    </ol>
+  </li>
+  <li><a href="#fonctionnalites">Description et utilisation des fonctionnalités</a>
+    <ol>
+      <li><a href="#fonc-vitrine">Site vitrine</a></li>
+      <li><a href="#fonc-plugin-partenaires">Plugin WordPress – Partenaires</a></li>
+      <li><a href="#fonc-plugin-temoignages">Plugin WordPress – Témoignages clients</a></li>
+      <li><a href="#fonc-connexion">Intranet – Portail de connexion</a></li>
+      <li><a href="#fonc-utilisateurs">Intranet – Gestion des utilisateurs</a></li>
+      <li><a href="#fonc-fichiers">Intranet – Gestionnaire de fichiers partagés</a></li>
+      <li><a href="#fonc-annuaire-employes">Intranet – Annuaire des employés</a></li>
+      <li><a href="#fonc-annuaire-partenaires">Intranet – Annuaire des partenaires</a></li>
+      <li><a href="#fonc-annuaire-clients">Intranet – Annuaire des clients</a></li>
+    </ol>
+  </li>
+  <li><a href="#identifiants">Identifiants et mots de passe de test</a>
+    <ol>
+      <li><a href="#ids-wordpress">WordPress (site vitrine)</a></li>
+      <li><a href="#ids-intranet">Intranet</a></li>
+    </ol>
+  </li>
+</ol>
+<hr>
+
+<!-- ================================================ -->
+<h2 id="architecture">1. Description de l'architecture du projet</h2>
+
+<h3 id="archi-serveur">1.1 Organisation du serveur</h3>
+
+<p>Le projet est hébergé sur le serveur web Apache mis à disposition par l'IUT Saint-Malo. Il est composé de deux espaces distincts, accessibles depuis le même nom de domaine/adresse IP :</p>
+
+<pre>
+/                          ← Racine du serveur
+├── infos.html             ← Page d'informations générale (sans CSS)
+├── wiki.html              ← Cette page wiki (sans CSS)
+│
+├── vitrine/               ← Installation WordPress (site vitrine public)
+│   ├── wp-admin/          ← Tableau de bord WordPress
+│   ├── wp-content/
+│   │   ├── themes/        ← Thème personnalisé avec charte graphique
+│   │   └── plugins/
+│   │       ├── partenaires/      ← Plugin maison : affichage des partenaires
+│   │       └── temoignages/      ← Plugin maison : témoignages clients
+│   └── ...                ← Fichiers cœur WordPress
+│
+└── intranet/              ← Application PHP développée from scratch
+    ├── index.php          ← Page de connexion
+    ├── dashboard.php      ← Tableau de bord après connexion
+    ├── utilisateurs/      ← Gestion des comptes utilisateurs
+    ├── fichiers/          ← Gestionnaire de fichiers partagés (txt, csv)
+    ├── annuaire/          ← Annuaire des employés
+    ├── partenaires/       ← Gestion des partenaires (sync avec vitrine)
+    ├── clients/           ← Annuaire et fiches clients
+    ├── data/              ← Fichiers JSON de stockage des données
+    │   ├── utilisateurs.json
+    │   ├── partenaires.json
+    │   ├── employes.json
+    │   ├── clients.json
+    │   └── temoignages.json
+    ├── uploads/           ← Fichiers partagés (txt, csv) par groupe
+    ├── assets/            ← CSS surcharge Bootstrap, images, logos
+    └── includes/          ← Fonctions PHP communes (auth, sessions, helpers)
+</pre>
+
+<h3 id="archi-vitrine">1.2 Site vitrine (WordPress)</h3>
+
+<p>Le site vitrine est construit sur <strong>WordPress</strong>. Il utilise un thème personnalisé qui applique la charte graphique de l'entreprise. Deux plugins PHP sont développés par l'équipe :</p>
+<ul>
+  <li><strong>Plugin Partenaires</strong> : lit les données JSON gérées dans l'intranet et affiche les logos et descriptions des partenaires sur une page WordPress.</li>
+  <li><strong>Plugin Témoignages</strong> : lit un fichier JSON de témoignages et les affiche sous forme de cards Bootstrap via un shortcode <code>[temoignages_clients]</code>.</li>
+</ul>
+<p>La configuration Apache dédie un Virtual Host (ou un sous-répertoire) à WordPress. PHP 7.4+ est requis. Aucune base de données MySQL n'est utilisée pour l'intranet ; WordPress utilise sa propre base SQLite ou MySQL selon la configuration serveur.</p>
+
+<h3 id="archi-intranet">1.3 Intranet (PHP from scratch)</h3>
+
+<p>L'intranet est une application web développée intégralement en PHP, HTML, CSS et Bootstrap 5, <strong>sans WordPress ni base de données MySQL</strong>. Toutes les données sont persistées dans des fichiers <strong>JSON</strong>. Le CSS personnalisé ne sert qu'à surcharger les couleurs de Bootstrap.</p>
+
+<p>L'application repose sur un système de sessions PHP pour gérer l'authentification et les droits d'accès. Chaque page vérifie la session active avant d'afficher son contenu.</p>
+
+<p>Groupes utilisateurs définis :</p>
+<ul>
+  <li><strong>admin</strong> – accès complet à toutes les fonctionnalités</li>
+  <li><strong>direction</strong> – accès en lecture/écriture sur les annuaires et partenaires</li>
+  <li><strong>managers</strong> – accès aux fichiers partagés et annuaires</li>
+  <li><strong>salaries</strong> – accès limité (lecture annuaire, dépôt/lecture fichiers selon droits)</li>
+</ul>
+
+<h3 id="archi-donnees">1.4 Stockage des données</h3>
+
+<p>Toutes les données métier sont stockées dans des fichiers <strong>JSON</strong> situés dans <code>intranet/data/</code>. Les fichiers partagés par les utilisateurs sont stockés dans <code>intranet/uploads/</code> et organisés par groupe. L'accès en lecture/écriture/suppression sur ces fichiers est contrôlé par une matrice de droits définie par groupe.</p>
+
+<p>Les formats acceptés pour les fichiers partagés sont uniquement <strong>.txt</strong> et <strong>.csv</strong>.</p>
+
+<h3 id="archi-git">1.5 Versionnement Git</h3>
+
+<p>Le projet est versionné sur <strong>GitHub</strong>. Chaque membre commit avec son adresse mail universitaire. Les membres suivants ont accès au dépôt en tant que collaborateurs : <code>frmenguy</code>, <code>cD4v1D</code>, <code>aloisguitton</code>.</p>
+<hr>
+
+<!-- ================================================ -->
+<h2 id="fonctionnalites">2. Description et utilisation des fonctionnalités</h2>
+
+<h3 id="fonc-vitrine">2.1 Site vitrine</h3>
+
+<p>Le site vitrine est public et accessible sans connexion. Il présente l'entreprise à travers les pages suivantes :</p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Description</th>
+      <th>URL exemple</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Accueil</td>
+      <td>Présentation générale de l'entreprise et de ses valeurs.</td>
+      <td><code>/vitrine/</code></td>
+    </tr>
+    <tr>
+      <td>Qui sommes-nous ?</td>
+      <td>Présentation des dirigeants et des membres principaux de l'équipe.</td>
+      <td><code>/vitrine/qui-sommes-nous/</code></td>
+    </tr>
+    <tr>
+      <td>Histoire</td>
+      <td>Chronologie de l'évolution de l'entreprise (changements de présidence, acquisitions, implantations géographiques…).</td>
+      <td><code>/vitrine/histoire/</code></td>
+    </tr>
+    <tr>
+      <td>Activités</td>
+      <td>Présentation des différents domaines d'activité de l'entreprise.</td>
+      <td><code>/vitrine/activites/</code></td>
+    </tr>
+    <tr>
+      <td>Partenaires</td>
+      <td>Logos et descriptions des partenaires, affichés via le plugin WordPress maison. Données gérées depuis l'intranet.</td>
+      <td><code>/vitrine/partenaires/</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="fonc-plugin-partenaires">2.2 Plugin WordPress – Partenaires</h3>
+
+<p><strong>Rôle :</strong> Afficher dynamiquement les logos (en miniature) et les descriptions des partenaires de l'entreprise sur la page Partenaires de la vitrine.</p>
+<p><strong>Fonctionnement :</strong> Le plugin lit le fichier <code>intranet/data/partenaires.json</code> (partagé entre l'intranet et la vitrine) et génère l'affichage automatiquement.</p>
+<p><strong>Utilisation :</strong> Insérer le shortcode <code>[partenaires_entreprise]</code> dans la page WordPress souhaitée. Les données sont mises à jour depuis l'interface de gestion de l'intranet.</p>
+
+<h3 id="fonc-plugin-temoignages">2.3 Plugin WordPress – Témoignages clients</h3>
+
+<p><strong>Rôle :</strong> Collecter et afficher les témoignages de clients satisfaits sous forme de cards Bootstrap sur le site vitrine.</p>
+
+<p><strong>Données gérées par témoignage :</strong></p>
+<ul>
+  <li>Nom du client</li>
+  <li>Entreprise du client</li>
+  <li>Citation (texte libre)</li>
+  <li>Note de 1 à 5 étoiles</li>
+  <li>Statut : actif / inactif</li>
+</ul>
+
+<p><strong>Interface d'administration (WP-Admin) :</strong> Un menu dédié « Gestion des témoignages » permet à l'administrateur de :</p>
+<ul>
+  <li>Ajouter un nouveau témoignage via un formulaire</li>
+  <li>Activer ou désactiver un témoignage (sans suppression)</li>
+  <li>Modifier un témoignage existant</li>
+  <li>Supprimer définitivement un témoignage</li>
+</ul>
+
+<p><strong>Affichage front-office :</strong> Insérer le shortcode <code>[temoignages_clients]</code> dans n'importe quelle page ou article WordPress. Seuls les témoignages avec le statut « actif » sont affichés. La note est rendue sous forme d'étoiles (★ pleine / ★ vide).</p>
+
+<p><strong>Stockage :</strong> Les données sont stockées dans un fichier JSON dans le répertoire du plugin.</p>
+
+<h3 id="fonc-connexion">2.4 Intranet – Portail de connexion</h3>
+
+<p><strong>URL :</strong> <code>/intranet/</code> ou <code>/intranet/index.php</code></p>
+<p><strong>Accès :</strong> Réservé aux salariés de l'entreprise. La page affiche un formulaire de connexion (identifiant + mot de passe). En cas d'échec, un message d'erreur est affiché. En cas de succès, l'utilisateur est redirigé vers le tableau de bord selon son groupe.</p>
+<p>La déconnexion est accessible depuis toutes les pages de l'intranet via un lien dans la barre de navigation.</p>
+
+<h3 id="fonc-utilisateurs">2.5 Intranet – Gestion des utilisateurs</h3>
+
+<p><strong>Accès :</strong> Réservé au groupe <strong>admin</strong>.</p>
+<p><strong>URL :</strong> <code>/intranet/utilisateurs/</code></p>
+<p>Cette section permet de :</p>
+<ul>
+  <li><strong>Lister</strong> tous les comptes utilisateurs avec leur groupe d'appartenance</li>
+  <li><strong>Ajouter</strong> un utilisateur (identifiant, mot de passe, profil, groupe(s))</li>
+  <li><strong>Modifier</strong> les informations et le profil d'un utilisateur existant</li>
+  <li><strong>Supprimer</strong> un compte utilisateur</li>
+  <li><strong>Gérer les groupes</strong> : un utilisateur peut appartenir à plusieurs groupes simultanément</li>
+</ul>
+<p>Les groupes disponibles sont : <em>admin</em>, <em>direction</em>, <em>managers</em>, <em>salaries</em> (et éventuellement des groupes personnalisés).</p>
+<p><strong>Stockage :</strong> <code>intranet/data/utilisateurs.json</code></p>
+
+<h3 id="fonc-fichiers">2.6 Intranet – Gestionnaire de fichiers partagés</h3>
+
+<p><strong>URL :</strong> <code>/intranet/fichiers/</code></p>
+<p>Permet le partage de fichiers <strong>.txt</strong> et <strong>.csv</strong> entre collaborateurs selon les droits de chaque groupe. Les opérations disponibles dépendent du groupe de l'utilisateur connecté :</p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>admin</th>
+      <th>direction</th>
+      <th>managers</th>
+      <th>salaries</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Voir la liste des fichiers</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Oui (selon droits)</td>
+    </tr>
+    <tr>
+      <td>Visualiser un fichier</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Oui (selon droits)</td>
+    </tr>
+    <tr>
+      <td>Ajouter un fichier</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Non</td>
+    </tr>
+    <tr>
+      <td>Supprimer un fichier</td>
+      <td>Oui</td>
+      <td>Oui</td>
+      <td>Non</td>
+      <td>Non</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Note : la matrice de droits définitive est fixée par l'équipe dans la documentation de conception du projet.</em></p>
+
+<h3 id="fonc-annuaire-employes">2.7 Intranet – Annuaire des employés</h3>
+
+<p><strong>URL :</strong> <code>/intranet/annuaire/</code></p>
+<p>L'annuaire recense au minimum <strong>12 personnes</strong>. Chaque fiche employé contient :</p>
+<ul>
+  <li>Nom et prénom</li>
+  <li>Fonction</li>
+  <li>Photo</li>
+  <li>Biographie</li>
+</ul>
+<p><strong>Consultation :</strong> Tous les utilisateurs connectés peuvent consulter l'annuaire complet.</p>
+<p><strong>Administration :</strong> Les utilisateurs autorisés (admin, direction) peuvent ajouter, modifier ou supprimer une fiche employé.</p>
+<p><strong>Stockage :</strong> <code>intranet/data/employes.json</code> + photos dans <code>intranet/assets/photos/</code></p>
+
+<h3 id="fonc-annuaire-partenaires">2.8 Intranet – Annuaire des partenaires</h3>
+
+<p><strong>URL :</strong> <code>/intranet/partenaires/</code></p>
+<p>L'annuaire recense au minimum <strong>5 partenaires</strong>. Chaque fiche partenaire contient :</p>
+<ul>
+  <li>Nom de l'entreprise partenaire</li>
+  <li>Logo</li>
+  <li>Description affichée sur la vitrine</li>
+</ul>
+<p><strong>Administration :</strong> Ajout, modification et suppression d'un partenaire depuis l'intranet.</p>
+<p><strong>Lien avec la vitrine :</strong> Les informations gérées ici alimentent automatiquement la page Partenaires du site vitrine via le plugin WordPress dédié.</p>
+<p><strong>Stockage :</strong> <code>intranet/data/partenaires.json</code> + logos dans <code>intranet/assets/logos/</code></p>
+
+<h3 id="fonc-annuaire-clients">2.9 Intranet – Annuaire des clients</h3>
+
+<p><strong>URL :</strong> <code>/intranet/clients/</code></p>
+<p>L'annuaire recense au minimum <strong>30 clients</strong>. Chaque fiche client contient :</p>
+<ul>
+  <li>Nom et prénom</li>
+  <li>Numéro de téléphone</li>
+  <li>Adresse e-mail</li>
+  <li>Adresse postale</li>
+  <li>Autres informations utiles</li>
+</ul>
+<p><strong>Fonctionnalités :</strong></p>
+<ul>
+  <li><strong>Afficher</strong> la liste complète des clients</li>
+  <li><strong>Ajouter</strong> un nouveau client</li>
+  <li><strong>Modifier</strong> les informations d'un client existant</li>
+  <li><strong>Supprimer</strong> un client</li>
+  <li><strong>Télécharger</strong> la fiche d'un client (export en fichier .txt ou .csv)</li>
+</ul>
+<p><strong>Stockage :</strong> <code>intranet/data/clients.json</code></p>
+<hr>
+
+<!-- ================================================ -->
+<h2 id="identifiants">3. Identifiants et mots de passe de test</h2>
+
+<p><strong>ATTENTION :</strong> Ces identifiants sont fournis uniquement à des fins de test et d'évaluation. Ils ne doivent pas être utilisés en production.</p>
+
+<h3 id="ids-wordpress">3.1 WordPress – Site vitrine</h3>
+<p>URL d'administration : <code>/vitrine/wp-admin/</code></p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Rôle</th>
+      <th>Identifiant</th>
+      <th>Mot de passe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Administrateur WordPress</td>
+      <td><code>groupe_videosurveillance</code></td>
+      <td><code>DrF7vHjtAQh4dv8</code></td>
+    </tr>
+    <tr>
+      <td>Éditeur</td>
+      <td><code>editeur</code></td>
+      <td><code>À compléter par l'équipe</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="ids-intranet">3.2 Intranet</h3>
+<p>URL de connexion : <code>/intranet/</code></p>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Groupe</th>
+      <th>Identifiant</th>
+      <th>Mot de passe</th>
+      <th>Droits principaux</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>admin</td>
+      <td><code>admin</code></td>
+      <td><code>motdepasse</code></td>
+      <td>Accès complet</td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td><code>user</code></td>
+      <td><code>motdepasse</code></td>
+      <td>Accés standard</td>
+    </tr>
+    <tr>
+      <td>modérateur</td>
+      <td><code>modo</code></td>
+      <td><code>motdepasse</code></td>
+      <td>Accés modérateur</td>
+    </tr>
+    <tr>
+      <td>salaries</td>
+      <td><code>salarie1</code></td>
+      <td><code>À compléter par l'équipe</code></td>
+      <td>Annuaire (lecture), fichiers (lecture)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+<p><em>Page générée dans le cadre de la SAÉ 203 – IUT R&amp;T Saint-Malo – 2025/2026.</em></p>
+<p><em>Cette page est indépendante de la vitrine WordPress et de l'intranet. Elle est accessible sans connexion.</em></p>
+
+</body>
+</html>
